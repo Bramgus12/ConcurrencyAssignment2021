@@ -4,6 +4,9 @@ using System.Text;
 using System.Text.Json;
 using Sequential;
 using Concurrent;
+
+
+using System.Diagnostics;
 //using Solution;
 
 
@@ -79,6 +82,25 @@ namespace Program
                         break;
                     case "E":
                         stop = true;
+                        break;
+                    case "F":
+
+                        Process cmd = new Process();
+                        var testSTring = "Help";
+                        cmd.StartInfo.FileName = "cmd.exe";
+                        cmd.StartInfo.RedirectStandardInput = true;
+                        cmd.StartInfo.RedirectStandardOutput = true;
+                        cmd.StartInfo.CreateNoWindow = false;
+                        cmd.StartInfo.UseShellExecute = false;
+                        cmd.Start();
+
+                        cmd.StandardInput.WriteLine(testSTring);
+                        cmd.StandardInput.Flush();
+                        cmd.StandardInput.Close();
+                        cmd.WaitForExit();
+                        Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+
+
                         break;
                     default:
                         Console.WriteLine("\n Invalid input ... ");

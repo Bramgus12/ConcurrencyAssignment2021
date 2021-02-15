@@ -5,7 +5,7 @@
   "clientMaxStartingTime": 1000,
   "experimentNumberOfClients": 1500,
   "delayForTermination": 1000,
-  "votingList": "ps :open -a preview :open -a whatsapp :ls -all",
+  "votingList": "echo hello teacher:dir:ipconfig:date",
   "serverListeningQueue": 20,
   "serverProcessingTime": 100,
   "commands_sep": ":",

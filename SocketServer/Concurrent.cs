@@ -12,6 +12,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Concurrent
 {
@@ -112,6 +113,25 @@ namespace Concurrent
                             }
                         }
                         Console.WriteLine("[Server] maximum vote is '{0}' with {1} votes.", maximumVote.Key, maximumVote.Value);
+                        Process cmd = new Process();
+
+                        //var TestString ="echo hello teacher";
+
+                        cmd.StartInfo.FileName = "cmd.exe";
+                        cmd.StartInfo.CreateNoWindow = true;
+                        cmd.StartInfo.RedirectStandardInput = true;
+                        cmd.StartInfo.RedirectStandardOutput = true;
+                        cmd.StartInfo.UseShellExecute = false;
+                        cmd.Start();
+
+                        cmd.StandardInput.WriteLine(maximumVote.Key);
+                        cmd.StandardInput.Flush();
+                        cmd.StandardInput.Close();
+                        cmd.WaitForExit();
+                        Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+                        Console.ReadKey();
+
+                        
                         lock (threadCountLock) {
                             threads.Clear();
                         }
