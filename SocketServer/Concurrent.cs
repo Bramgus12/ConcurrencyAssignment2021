@@ -12,6 +12,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Concurrent
 {
@@ -112,6 +113,23 @@ namespace Concurrent
                             }
                         }
                         Console.WriteLine("[Server] maximum vote is '{0}' with {1} votes.", maximumVote.Key, maximumVote.Value);
+
+                        int p = (int) System.Environment.OSVersion.Platform;
+
+                        string cmd = "/c " + maximumVote.Key;
+                        ProcessStartInfo runnable = new ProcessStartInfo("powershell.exe", cmd);
+                        if (p == 6) { // if not Windows
+                            cmd = "-c " + maximumVote.Key;
+                            runnable = new ProcessStartInfo("/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal", cmd);
+                        } else if (p == 4 || p == 128){
+                            cmd = "-c " + maximumVote.Key;
+                            runnable = new ProcessStartInfo("/bin/sh", cmd);
+                        }
+
+                        runnable.UseShellExecute = false;
+                        var proc = Process.Start(runnable);
+                        proc.WaitForExit();
+
                         lock (threadCountLock) {
                             threads.Clear();
                         }
