@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Sequential;
 using Concurrent;
 //using Solution;

@@ -1,4 +1,4 @@
-﻿// communication protocol:
+// communication protocol:
 // client -- connect --->              server
 // client <-- ready -----              server
 // client -- command / terminate -->   server
